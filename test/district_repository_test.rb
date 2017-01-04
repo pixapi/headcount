@@ -2,12 +2,13 @@ require './test/test_helper'
 require './lib/district_repository'
 
 class DistrictRepositoryTest < Minitest::Test
+
   def test_it_has_a_class
     dr = DistrictRepository.new
     assert_instance_of DistrictRepository, dr
   end
 
-  #maybe test file loads? #Moch test??
+  #maybe test file loads? #Mocha test??
 
   def test_it_displays_district_if_known
     dr = DistrictRepository.new
