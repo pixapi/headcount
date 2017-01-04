@@ -21,10 +21,15 @@ class DistrictRepository
   end
 
   def find_all_matching(name_fragment)
+    district_names = []
     @file.find_all do |row|
-      location = row[:location]
-      location.include?(name_fragment)
+      location = row[:location].upcase
+      location.start_with?(name_fragment.upcase)
+      #location.include?(name_fragment.upcase)
+    end.each do |element|
+      district_names << element[:location]
     end
+    district_names.uniq
   end
 end
 
