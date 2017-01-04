@@ -38,5 +38,5 @@ end
 #   :enrollment => {
 #     :kindergarten => "./data/Kindergartners in full-day program.csv"
 #   }})
-#   dr.find_by_name("ACADEMY 20")
+#   puts dr.find_by_name("ACADEMY 20")
 #   dr.find_by_name("ARIZONA")
