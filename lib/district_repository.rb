@@ -12,7 +12,7 @@ class DistrictRepository
       @matching_district = district_name.upcase
       location = row[:location] #if used often put in initialize
       if location.include?(@matching_district) #another option ==
-        @matching_district = District.new
+        @matching_district = District.new(@matching_district)
       else
         @matching_district = nil
       end
