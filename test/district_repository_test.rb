@@ -7,7 +7,7 @@ class DistrictRepositoryTest < Minitest::Test
     assert_instance_of DistrictRepository, dr
   end
 
-  #maybe test file loads?
+  #maybe test file loads? #Moch test??
 
   def test_it_displays_district_if_known
     dr = DistrictRepository.new
@@ -18,7 +18,7 @@ class DistrictRepositoryTest < Minitest::Test
     assert_equal District, dr.find_by_name("ACADEMY 20").class
   end
 
-  def test_finds_is_case_insensitive
+  def test_it_is_case_insensitive
     dr = DistrictRepository.new
     dr.load_data({
       :enrollment => {
@@ -36,13 +36,30 @@ class DistrictRepositoryTest < Minitest::Test
     assert_equal nil, dr.find_by_name("ARIZONA")
   end
 
-  def test_it_can_look_for_district_name_fragments
+  def test_it_finds_district_from_name_fragment
     dr = DistrictRepository.new
     dr.load_data({
       :enrollment => {
         :kindergarten => "./data/Kindergartners in full-day program.csv"
       }})
-    assert_equal "ADAMS COUNTY 14", dr.find_all_matching("ada")
+    assert_equal ["ALAMOSA RE-11J"], dr.find_all_matching("ALA")
   end
 
+  def test_it_finds_all_matches_for_a_name_fragment
+    dr = DistrictRepository.new
+    dr.load_data({
+      :enrollment => {
+        :kindergarten => "./data/Kindergartners in full-day program.csv"
+      }})
+    assert_equal ["AGATE 300", "AGUILAR REORGANIZED 6"], dr.find_all_matching("AG")
+  end
+
+  def test_it_finds_district_from_name_fragment_is_insensitive
+    dr = DistrictRepository.new
+    dr.load_data({
+      :enrollment => {
+        :kindergarten => "./data/Kindergartners in full-day program.csv"
+        }})
+    assert_equal ["ARCHULETA COUNTY 50 JT"], dr.find_all_matching("arch")
+  end
 end
