@@ -30,7 +30,6 @@ class EnrollmentRepositoryTest < Minitest::Test
   end
 
   def test_it_gets_nil_if_district_unknown
-    skip
     er = EnrollmentRepository.new
     er.load_data({
       :enrollment => {

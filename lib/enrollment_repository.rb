@@ -1,5 +1,6 @@
 require 'csv'
 require './lib/enrollment'
+require 'pry'
 
 class EnrollmentRepository
   def load_data(data_set)
@@ -7,12 +8,16 @@ class EnrollmentRepository
   end
 
   def find_by_name(district_name)
-    found_district = @file.find_all do |row|
+    @found_district = @file.find_all do |row|
       location = row[:location].upcase
       district_name = district_name.upcase
       location == district_name
     end
-    build_enrollment_data(found_district)
+    if @found_district == []
+      nil
+    elsif @found_district[0][:location] == district_name
+      build_enrollment_data(@found_district)
+    end
   end
 
   def build_enrollment_data(found_district)
@@ -34,10 +39,10 @@ class EnrollmentRepository
   end
 end
 
-er = EnrollmentRepository.new
-er.load_data({
-  :enrollment => {
-    :kindergarten => "./data/Kindergartners in full-day program.csv"
-  }
-})
-er.find_by_name("Colorado")
+# er = EnrollmentRepository.new
+# er.load_data({
+#   :enrollment => {
+#     :kindergarten => "./data/Kindergartners in full-day program.csv"
+#   }
+# })
+# er.find_by_name("Colorado")
