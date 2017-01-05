@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require './lib/enrollment'
+#change to require_relative for spec harness
 
 class EnrollmentTest < Minitest::Test
   def test_it_has_a_class

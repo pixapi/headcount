@@ -4,7 +4,8 @@ require 'pry'
 
 class DistrictRepository
   def load_data(data_set)
-    @file = CSV.open data_set[:enrollment][:kindergarten], headers: true, header_converters: :symbol
+    @file = CSV.open data_set[:enrollment][:kindergarten],
+            headers: true, header_converters: :symbol
   end
 
   def find_by_name(district_name)

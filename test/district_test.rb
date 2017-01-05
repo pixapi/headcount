@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require './lib/district'
+#change to require_relative for spec harness
 
 class DistrictTest < Minitest::Test
   def test_it_has_a_class

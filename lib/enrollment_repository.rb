@@ -3,20 +3,24 @@ require './lib/enrollment'
 require 'pry'
 
 class EnrollmentRepository
-  def load_data(data_set)
-    @file = CSV.open data_set[:enrollment][:kindergarten], headers: true, header_converters: :symbol
+  def load_data(data_set) #maybe move this to module LoadData
+    @file = CSV.open data_set[:enrollment][:kindergarten],
+    headers: true, header_converters: :symbol
   end
 
   def find_by_name(district_name)
-    @found_district = @file.find_all do |row|
-      location = row[:location].upcase
+    found_district = @file.find_all do |row|
       district_name = district_name.upcase
-      location == district_name
+      row[:location].upcase == district_name
     end
-    if @found_district == []
+    determine_district_validity(found_district, district_name)
+  end
+
+  def determine_district_validity(found_district, district_name)
+    if found_district == []
       nil
-    elsif @found_district[0][:location] == district_name
-      build_enrollment_data(@found_district)
+    elsif found_district[0][:location] == district_name
+      build_enrollment_data(found_district)
     end
   end
 
