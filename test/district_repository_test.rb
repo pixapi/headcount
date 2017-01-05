@@ -34,7 +34,7 @@ class DistrictRepositoryTest < Minitest::Test
       :enrollment => {
         :kindergarten => "./data/Kindergartners in full-day program.csv"
       }})
-    assert_equal nil, dr.find_by_name("ARIZONA")
+    assert_nil dr.find_by_name("ARIZONA")
   end
 
   def test_it_finds_district_from_name_fragment
