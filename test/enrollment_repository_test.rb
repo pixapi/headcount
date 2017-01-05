@@ -37,7 +37,7 @@ class EnrollmentRepositoryTest < Minitest::Test
       }
     })
     enrollment = er.find_by_name("OHIO 216")
-    assert_equal nil, enrollment
+    assert_nil enrollment
   end
 
 end
