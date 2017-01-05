@@ -11,8 +11,7 @@ class DistrictRepository
   def find_by_name(district_name)
     @file.find do |row|
       @matching_district = district_name.upcase
-      location = row[:location] #if used often put in initialize
-      if location.include?(@matching_district) #another option ==
+      if row[:location].include?(@matching_district) #another option ==
         @matching_district = District.new(@matching_district)
       else
         @matching_district = nil
@@ -24,9 +23,7 @@ class DistrictRepository
   def find_all_matching(name_fragment)
     district_names = []
     @file.find_all do |row|
-      location = row[:location].upcase
-      location.start_with?(name_fragment.upcase)
-      #location.include?(name_fragment.upcase)
+      row[:location].upcase.start_with?(name_fragment.upcase) #location.include?(name_fragment.upcase)
     end.each do |element|
       district_names << element[:location]
     end

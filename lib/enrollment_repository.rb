@@ -49,4 +49,4 @@ end
 #     :kindergarten => "./data/Kindergartners in full-day program.csv"
 #   }
 # })
-# er.find_by_name("Colorado")
+# p er.find_by_name("Colorado")
