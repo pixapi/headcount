@@ -1,52 +1,40 @@
 require 'csv'
-require './lib/enrollment'
+require_relative 'enrollment'
 require 'pry'
 
 class EnrollmentRepository
-  def load_data(data_set) #maybe move this to module LoadData
-    @file = CSV.open data_set[:enrollment][:kindergarten],
-    headers: true, header_converters: :symbol
+  attr_reader :enrollments
+
+  def initialize
+    @enrollments = {}
+  end
+
+  def open_file(filename)
+    CSV.open filename, headers: true, header_converters: :symbol
+  end
+
+  def load_data(data_set)
+    contents = open_file(data_set[:enrollment][:kindergarten])
+    contents.each do |row|
+      name = row[:location].upcase
+      year = row[:timeframe]
+      rate = row[:data]
+      add_to_enrollments(name, year, rate)
+    end
+  end
+
+  def add_to_enrollments(name, year, rate)
+      if @enrollments.empty?
+        @enrollments[name] = Enrollment.new({:name => name, :kindergarten_participation => {year =>rate}})
+      elsif @enrollments.keys.count(name) == 0
+        @enrollments[name] = Enrollment.new({:name => name, :kindergarten_participation => {year =>rate}})
+      elsif @enrollments.keys.include?(name) == true
+        @enrollments[name].enrollment_data[:kindergarten_participation].merge!({year => rate})
+      end
+    @enrollments[name]
   end
 
   def find_by_name(district_name)
-    found_district = @file.find_all do |row|
-      district_name = district_name.upcase
-      row[:location].upcase == district_name
-    end
-    determine_district_validity(found_district, district_name)
-  end
-
-  def determine_district_validity(found_district, district_name)
-    if found_district == []
-      nil
-    elsif found_district[0][:location] == district_name
-      build_enrollment_data(found_district)
-    end
-  end
-
-  def build_enrollment_data(found_district)
-    years = []
-    rates = []
-    found_district.each do |row|
-      years << row[:timeframe].to_i
-      rates << row[:data].to_f
-    end
-    year_rate = years.zip(rates).to_h
-    create_enrollment_instance(found_district, year_rate)
-  end
-
-  def create_enrollment_instance(found_district, year_rate)
-    enrollment = {}
-    enrollment[:name] = found_district[0][:location]
-    enrollment[:kindergarten_participation] = year_rate
-    Enrollment.new(enrollment)
+    @enrollments[district_name.upcase]
   end
 end
-
-# er = EnrollmentRepository.new
-# er.load_data({
-#   :enrollment => {
-#     :kindergarten => "./data/Kindergartners in full-day program.csv"
-#   }
-# })
-# p er.find_by_name("Colorado")
