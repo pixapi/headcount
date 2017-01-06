@@ -1,4 +1,5 @@
 class Enrollment
+  attr_reader :enrollment_data
   def initialize(enrollment_data)
     @enrollment_data = enrollment_data
   end
