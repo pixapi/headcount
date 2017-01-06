@@ -3,6 +3,13 @@ require './lib/enrollment_repository'
 #change to require_relative for spec harness?
 
 class EnrollmentRepositoryTest < Minitest::Test
+  def setup
+    er = EnrollmentRepository.new
+    @data = er.load_data({
+      :enrollment => {
+        :kindergarten => "./data/Kindergartners in full-day program.csv"
+      }
+  end
   def test_it_has_a_class
     er = EnrollmentRepository.new
     assert_instance_of EnrollmentRepository, er
@@ -32,6 +39,7 @@ class EnrollmentRepositoryTest < Minitest::Test
   end
 
   def test_it_gets_nil_if_district_unknown
+    skip
     er = EnrollmentRepository.new
     er.load_data({
       :enrollment => {
@@ -42,12 +50,17 @@ class EnrollmentRepositoryTest < Minitest::Test
     assert_nil enrollment
   end
 
-  # def test_it_finds_district_when_valid
-  #   er = EnrollmentRepository.new
-  #   # found_district = [<CSV::Row location:"ACADEMY 20" timeframe:"2007" dataformat:"Percent" data:"0.39159">]
-  #   assert_equal CSV, er.determine_district_validity(found_district, "ARCHULETA COUNTY 50").class
-  #   #assert_equal "ACADEMY 20", er.determine_district_validity(found_district, "ARCHULETA COUNTY 50")[:location]
-  # end
+  def test_it_finds_district_when_valid
+    skip
+    er = EnrollmentRepository.new
+    er.load_data({
+      :enrollment => {
+        :kindergarten => "./data/Kindergartners in full-day program.csv"
+      }
+    })
+    found_district = [<CSV::Row location:"ACADEMY 20" timeframe:"2007" dataformat:"Percent" data:"0.39159">]
+    assert_equal CSV, er.determine_district_validity(found_district, "ARCHULETA COUNTY 50").class
+  end
 
   # def test_it_collects_enrollment_data
   #   skip
