@@ -34,7 +34,7 @@ class EnrollmentRepository
     @enrollments[name]
   end
 
-  def find_by_name(district_name)
-    @enrollments[district_name.upcase]
+  def find_by_name(name)
+    @enrollments[name.upcase]
   end
 end
