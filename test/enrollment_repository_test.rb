@@ -1,83 +1,49 @@
 require_relative 'test_helper'
 require './lib/enrollment_repository'
-#change to require_relative for spec harness?
 
 class EnrollmentRepositoryTest < Minitest::Test
-  # def setup
-  #   er = EnrollmentRepository.new
-  #   @data = er.load_data({
-  #     :enrollment => {
-  #       :kindergarten => "./data/Kindergartners in full-day program.csv"
-  #     }
-  # end
+  def setup
+    @er = EnrollmentRepository.new
+    @er.load_data({
+      :enrollment => {
+        :kindergarten => "./data/Kindergartners in full-day program.csv"}})
+  end
+
   def test_it_has_a_class
     er = EnrollmentRepository.new
     assert_instance_of EnrollmentRepository, er
   end
 
-  def test_it_displays_enrollment_if_known
-    er = EnrollmentRepository.new
-    er.load_data({
-      :enrollment => {
-        :kindergarten => "./data/Kindergartners in full-day program.csv"
-      }
-    })
-    enrollment = er.find_by_name("ACADEMY 20")
-    assert_equal Enrollment, enrollment.class
+  def test_it_finds_district_when_known
+    setup
+    assert_equal Enrollment, @er.find_by_name("ACADEMY 20").class
   end
 
-  def test_it_is_case_insensitive
-    er = EnrollmentRepository.new
-    er.load_data({
-      :enrollment => {
-        :kindergarten => "./data/Kindergartners in full-day program.csv"
-      }
-    })
-    enrollment = er.find_by_name("academy 20")
-    assert_equal Enrollment, enrollment.class
+  def test_finder_is_case_insensitive
+    setup
+    assert_equal Enrollment, @er.find_by_name("academy 20").class
   end
 
   def test_it_gets_nil_if_district_unknown
-    skip
-    er = EnrollmentRepository.new
-    er.load_data({
-      :enrollment => {
-        :kindergarten => "./data/Kindergartners in full-day program.csv"
-      }
-    })
-    enrollment = er.find_by_name("OHIO 216")
-    assert_nil enrollment
+    setup
+    assert_nil @er.find_by_name("OHIO 216")
   end
 
-  def test_it_finds_district_when_valid
-    skip
+  def test_it_adds_new_district_to_enrollment_data_tracker
     er = EnrollmentRepository.new
-    er.load_data({
-      :enrollment => {
-        :kindergarten => "./data/Kindergartners in full-day program.csv"
-      }
-    })
-    found_district = [<CSV::Row location:"ACADEMY 20" timeframe:"2007" dataformat:"Percent" data:"0.39159">]
-    assert_equal CSV, er.determine_district_validity(found_district, "ARCHULETA COUNTY 50").class
+    er.add_to_enrollments("MOFFAT 2", 2004, 0.01429)
+
+    assert_equal 1, er.enrollments.count
+    assert_equal Enrollment, er.add_to_enrollments("MOFFAT 2", 2004, 0.01429).class
   end
 
-  # def test_it_collects_enrollment_data
-  #   skip
-  #   er = EnrollmentRepository.new
-  #   # found_district = [<CSV::Row location:"ACADEMY 20" timeframe:"2007" dataformat:"Percent" data:"0.39159">]
-  #   assert_equal CSV, er.build_enrollment_data(found_district).class
-  # end
-
-  # def test_it_creates_enrollment_instance
-  #   skip
-  #   er = EnrollmentRepository.new
-  #   # found_district = [<CSV::Row location:"ACADEMY 20" timeframe:"2007" dataformat:"Percent" data:"0.39159">]
-  #   assert_equal CSV, er.create_enrollment_instance(found_district, year_rate).class
-  #   #assert_equal "ACADEMY 20", er.determine_district_validity(found_district, "ARCHULETA COUNTY 50")[:location]
-  # end
-  def test_it_returns_nil_when_invalid_district
+  def test_it_adds_new_data_to_existant_district_in_data_tracker
     er = EnrollmentRepository.new
-    expected = er.determine_district_validity([], "ARCHULETA COUNTY 50")
-    assert_nil expected
+    er.add_to_enrollments("CENTENNIAL R-1", 2005, 0.10526)
+    er.add_to_enrollments("CENTENNIAL R-1", 2006, 04545)
+    expected = {:name=>"CENTENNIAL R-1", :kindergarten_participation=>{2005=>0.10526, 2006=>2405}}
+
+    assert_equal 1, er.enrollments.count
+    assert_equal expected, er.enrollments["CENTENNIAL R-1"].enrollment_data
   end
 end
