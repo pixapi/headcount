@@ -18,4 +18,9 @@ class DistrictTest < Minitest::Test
     assert_equal "ACADEMY 20", d.name
   end
 
+  def test_it_gets_instance_of_enrollment
+    d = District.new({:name => "academy 20"})
+    assert_equal "enrollment instance", d.enrollment
+  end
+
 end

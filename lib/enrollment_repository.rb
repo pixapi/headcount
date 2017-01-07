@@ -11,6 +11,7 @@ class EnrollmentRepository
 
   def open_file(filename)
     CSV.open filename, headers: true, header_converters: :symbol
+
   end
 
   def load_data(data_set)
@@ -37,4 +38,5 @@ class EnrollmentRepository
   def find_by_name(name)
     @enrollments[name.upcase]
   end
+
 end
