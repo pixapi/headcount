@@ -46,4 +46,17 @@ class EnrollmentRepositoryTest < Minitest::Test
     assert_equal 1, er.enrollments.count
     assert_equal expected, er.enrollments["CENTENNIAL R-1"].enrollment_data
   end
+
+  def test_it_acces_name
+  er = EnrollmentRepository.new
+  er.load_data({
+                 :enrollment => {
+                   :kindergarten => "./data/Kindergartners in full-day program.csv"
+                 }
+               })
+
+  name = "GUNNISON WATERSHED RE1J"
+  enrollment = er.find_by_name(name)
+  assert_equal name, enrollment.name
+end
 end

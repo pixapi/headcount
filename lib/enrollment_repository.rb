@@ -17,8 +17,8 @@ class EnrollmentRepository
     contents = open_file(data_set[:enrollment][:kindergarten])
     contents.each do |row|
       name = row[:location].upcase
-      year = row[:timeframe]
-      rate = row[:data]
+      year = row[:timeframe].to_i
+      rate = row[:data].to_f
       add_to_enrollments(name, year, rate)
     end
   end
@@ -34,7 +34,7 @@ class EnrollmentRepository
     @enrollments[name]
   end
 
-  def find_by_name(district_name)
-    @enrollments[district_name.upcase]
+  def find_by_name(name)
+    @enrollments[name.upcase]
   end
 end
