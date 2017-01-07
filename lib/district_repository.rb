@@ -3,16 +3,13 @@ require_relative 'district'
 require 'pry'
 
 class DistrictRepository
-
   def initialize
     @districts = {}
   end
 
-
   def load_data(data_set)
     @file = CSV.open data_set[:enrollment][:kindergarten],
             headers: true, header_converters: :symbol
-
     @file.each do |row|
       name = row[:location]
       @districts[name] = District.new({:name => name})
@@ -31,11 +28,3 @@ class DistrictRepository
     end
   end
 end
-
-# dr = DistrictRepository.new
-# dr.load_data({
-#   :enrollment => {
-#     :kindergarten => "./data/Kindergartners in full-day program.csv"
-#   }})
-#   puts dr.find_by_name("ACADEMY 20")
-#   dr.find_by_name("ARIZONA")
