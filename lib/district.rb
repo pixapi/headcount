@@ -1,9 +1,11 @@
 class District
-  def initialize(name)
-    @name = name
+  attr_reader :district_info
+
+  def initialize(district_info)
+    @district_info = district_info
   end
 
   def name
-    @name[:name].upcase
+    @district_info[:name].upcase
   end
 end
