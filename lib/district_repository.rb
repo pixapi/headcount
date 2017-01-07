@@ -1,5 +1,6 @@
 require 'csv'
 require_relative 'district'
+require_relative 'enrollment_repository'
 require 'pry'
 
 class DistrictRepository
@@ -18,6 +19,7 @@ class DistrictRepository
 
   def find_by_name(district_name)
     @districts[district_name.upcase]
+    binding.pry
   end
 
   def find_all_matching(name_fragment)
@@ -27,4 +29,10 @@ class DistrictRepository
       district[0]
     end
   end
+
+  def self.find_enrollment(name)
+    enroll_repo = EnrollmentRepository.new
+    enroll_repo.find_by_name(name)
+  end
+
 end
