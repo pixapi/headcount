@@ -11,7 +11,6 @@ class EnrollmentRepository
 
   def open_file(filename)
     CSV.open filename, headers: true, header_converters: :symbol
-
   end
 
   def load_data(data_set)
@@ -36,6 +35,7 @@ class EnrollmentRepository
   end
 
   def find_by_name(name)
+    # binding.pry
     @enrollments[name.upcase]
   end
 

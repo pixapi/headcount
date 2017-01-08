@@ -11,6 +11,7 @@ class Enrollment
     enrollment_data_hash.inject({}) do |h, (k, v)|
       h[k] = (v * 1000).floor / 1000.0; h
     end
+    # binding.pry
   end
 
   def kindergarten_participation_in_year(year)
