@@ -2,8 +2,9 @@ require_relative 'district_repository'
 class District
   attr_reader :district_info
 
-  def initialize(district_info)
+  def initialize(district_info, district_repository)
     @district_info = district_info
+    @district_repository = district_repository
   end
 
   def name
@@ -12,7 +13,7 @@ class District
 
   def enrollment
     district_name = name
-    DistrictRepository.find_enrollment(district_name)
+    @district_repository.find_enrollment(district_name)
     #return instance of enrollment
   end
 end
