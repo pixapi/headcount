@@ -60,7 +60,7 @@ class DistrictRepositoryTest < Minitest::Test
 
     assert_equal ["CALHAN RJ-1", "CAMPO RE-6", "CANON CITY RE-1"], dr.find_all_matching("CA")
   end
-  
+
   def test_it_finds_district_from_name_fragment_is_insensitive
     dr = DistrictRepository.new
     dr.load_data({
@@ -68,5 +68,25 @@ class DistrictRepositoryTest < Minitest::Test
         :kindergarten => "./data/Kindergartners in full-day program.csv"
         }})
     assert_equal ["ARCHULETA COUNTY 50 JT"], dr.find_all_matching("arc")
+  end
+
+  def test_it_finds_district_from_name_fragment_is_insensitive
+    dr = DistrictRepository.new
+    dr.load_data({
+      :enrollment => {
+        :kindergarten => "./data/Kindergartners in full-day program.csv"
+        }})
+    assert_equal ["ARCHULETA COUNTY 50 JT"], dr.find_all_matching("arc")
+  end
+
+  def test_it_finds_enrollment_for_a_district
+    dr = DistrictRepository.new
+    dr.load_data({
+      :enrollment => {
+        :kindergarten => "./data/Kindergartners in full-day program.csv"
+        }})
+
+    assert_equal "COLORADO", dr.find_enrollment("Colorado").name
+    assert_equal Enrollment, dr.find_enrollment("Colorado").class
   end
 end
