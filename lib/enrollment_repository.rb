@@ -22,7 +22,7 @@ class EnrollmentRepository
     CSV.foreach(filepath,headers: true, header_converters: :symbol) do |row|
       name = row[:location].upcase
       year = row[:timeframe].to_i
-      rate = row[:data].to_f
+      rate = ((row[:data].to_f) * 1000).floor / 1000.0
       grade = grade_levels[data.values[0].keys[index]]
       enrollment = find_by_name(name)
       if enrollment == nil

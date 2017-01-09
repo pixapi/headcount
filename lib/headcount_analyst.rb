@@ -29,7 +29,24 @@ class HeadcountAnalyst
     @district_repo.find_enrollment(place).kindergarten_participation_by_year
   end
 
-    #we want to have two hashes to compare
-    #we want to create a new hash where values are district/stat
+  def kindergarten_participation_against_high_school_graduation(district)
+    kinder_var = kindergarten_participation_rate_variation(district, :against => "COLORADO")
+    grad_var = variation_from_district_graduation_against_state_graduation(district)
+    result = kinder_var/grad_var
+     (result * 1000).floor / 1000.0
+  end
 
+  def variation_from_district_graduation_against_state_graduation(district)
+    state = "COLORADO"
+    average_district = calculate_graduation_average(district)
+    average_state = calculate_graduation_average(state)
+    result = average_district/average_state
+    (result * 1000).floor / 1000.0
+  end
+
+  def calculate_graduation_average(place)
+    array = @district_repo.find_enrollment(place).graduation_rate_by_year.values
+    result = array.reduce(:+)/array.count
+    (result * 1000).floor / 1000.0
+  end
 end
