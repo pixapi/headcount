@@ -43,7 +43,9 @@ class HeadcountAnalystTest < Minitest::Test
     :kindergarten => "./data/Kindergartners in full-day program.csv"}})
     e = HeadcountAnalyst.new(dr)
     result = {2004 => 1.257, 2005 => 0.96, 2006 => 1.05, 2007 => 0.992, 2008 => 0.717, 2009 => 0.652,
-      2010 => 0.681, 2011 => 0.727, 2012 => 0.688, 2013 => 0.694, 2014 => 0.661 }.values[0]
-    assert_in_delta result, e.kindergarten_participation_rate_variation_trend('ACADEMY 20', :against => 'Colorado').values[0], 0.005
+      2010 => 0.681, 2011 => 0.727, 2012 => 0.688, 2013 => 0.694, 2014 => 0.661 }
+    result.each do |year, rate|
+      assert_in_delta rate, e.kindergarten_participation_rate_variation_trend('ACADEMY 20', :against => 'Colorado')[year], 0.005
+    end
   end
 end

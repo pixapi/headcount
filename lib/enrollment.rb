@@ -18,4 +18,5 @@ class Enrollment
     kindergarten_participation_by_year[year]
   end
 
+
 end
