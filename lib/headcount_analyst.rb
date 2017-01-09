@@ -12,6 +12,7 @@ class HeadcountAnalyst
 
   def calculate_average(place)
     array = @district_repo.find_enrollment(place).kindergarten_participation_by_year.values
+    #^^^^ use abbreviations (over 80 line violation)
     array.reduce(:+)/array.count
   end
 
@@ -21,7 +22,7 @@ class HeadcountAnalyst
     trend = hash_one.inject({}) do |h, (k, v)|
       h[k] = ((hash_one[k]/hash_two[k])* 1000).floor / 1000.0; h
     end
-    # trend = Hash[trend.sort_by {|key,val| key}]
+     trend = Hash[trend.sort_by {|key,val| key}]
     # binding.pry
   end
 

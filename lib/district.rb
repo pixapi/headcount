@@ -2,7 +2,7 @@ require_relative 'district_repository'
 class District
   attr_reader :district_info
 
-  def initialize(district_info, district_repository)
+  def initialize(district_info, district_repository = nil)
     @district_info = district_info
     @district_repository = district_repository
   end

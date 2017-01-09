@@ -11,6 +11,7 @@ class DistrictRepository
 
   def load_data(data_set)
     @file = CSV.open data_set[:enrollment][:kindergarten],
+    #^^^^ @file assumes too much violation
             headers: true, header_converters: :symbol
     @file.each do |row|
       name = row[:location].upcase
