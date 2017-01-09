@@ -21,7 +21,7 @@ class HeadcountAnalyst
     trend = hash_one.inject({}) do |h, (k, v)|
       h[k] = ((hash_one[k]/hash_two[k])* 1000).floor / 1000.0; h
     end
-    # trend = Hash[trend.sort_by {|key,val| key}]
+    trend = Hash[trend.sort_by {|key,val| key}]
     # binding.pry
   end
 

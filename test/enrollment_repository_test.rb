@@ -48,15 +48,27 @@ class EnrollmentRepositoryTest < Minitest::Test
   end
 
   def test_it_acces_name
-  er = EnrollmentRepository.new
-  er.load_data({
-                 :enrollment => {
-                   :kindergarten => "./data/Kindergartners in full-day program.csv"
-                 }
-               })
+    er = EnrollmentRepository.new
+    er.load_data({
+                   :enrollment => {
+                     :kindergarten => "./data/Kindergartners in full-day program.csv"
+                   }
+                 })
 
-  name = "GUNNISON WATERSHED RE1J"
-  enrollment = er.find_by_name(name)
-  assert_equal name, enrollment.name
-end
+    name = "GUNNISON WATERSHED RE1J"
+    enrollment = er.find_by_name(name)
+    assert_equal name, enrollment.name
+  end
+
+  def test_it_can_load_a_second_file
+    er = EnrollmentRepository.new
+    er.load_data({
+      :enrollment => {
+        :kindergarten => "./data/Kindergartners in full-day program.csv",
+        :high_school_graduation => "./data/High school graduation rates.csv"
+      }
+    })
+    enrollment = er.find_by_name("ACADEMY 20")
+    assert_equal "ACADEMY 20", enrollment.name
+  end
 end
