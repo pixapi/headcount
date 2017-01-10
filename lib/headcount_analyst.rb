@@ -8,6 +8,7 @@ class HeadcountAnalyst
   end
 
   def kindergarten_participation_rate_variation(place_one, place_two)
+    # binding.pry
     average_one = calculate_average(place_one)
     average_two = calculate_average(place_two[:against])
     average_two = 1 if average_two == 0
@@ -16,6 +17,7 @@ class HeadcountAnalyst
   end
 
   def calculate_average(place)
+    # binding.pry
     array = dr.find_enrollment(place).kindergarten_participation_by_year.values
     array.count = 1 if array.count == 0
     array.reduce(:+)/array.count
@@ -59,9 +61,11 @@ class HeadcountAnalyst
   def kindergarten_participation_correlates_with_high_school_graduation(district)
     if district[:for] == 'STATEWIDE'
       variation_statewide
+    elsif district.keys == [:across]
+      variation_districts(district[:across])
     else
       district = district[:for]
-      result = variation_from_district_graduation_against_state_graduation(district)
+      result = kindergarten_participation_against_high_school_graduation(district)
       result >= 0.6 && result <= 1.5
     end
   end
@@ -75,5 +79,16 @@ class HeadcountAnalyst
       variation >= 0.6 && variation <= 1.5
     end
     state_var.to_f / variations.count >= 0.7
+  end
+
+  def variation_districts(districts)
+    variations = []
+    districts.each do |district, enrollment|
+      variations << kindergarten_participation_against_high_school_graduation(district)
+    end
+    districts_var = variations.count do |variation|
+      variation >= 0.6 && variation <= 1.5
+    end
+    districts_var.to_f / variations.count >= 0.7
   end
 end
