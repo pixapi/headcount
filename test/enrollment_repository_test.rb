@@ -1,14 +1,17 @@
 require_relative 'test_helper'
 require './lib/enrollment_repository'
+require 'pry'
 
 class EnrollmentRepositoryTest < Minitest::Test
 
   def test_it_has_a_class
+    skip
     er = EnrollmentRepository.new
     assert_instance_of EnrollmentRepository, er
   end
 
   def test_it_finds_district_when_known
+    skip
     er = EnrollmentRepository.new
     er.load_data({
       :enrollment => {
@@ -17,6 +20,7 @@ class EnrollmentRepositoryTest < Minitest::Test
   end
 
   def test_finder_is_case_insensitive
+    skip
     er = EnrollmentRepository.new
     er.load_data({
       :enrollment => {
@@ -25,6 +29,7 @@ class EnrollmentRepositoryTest < Minitest::Test
   end
 
   def test_it_gets_nil_if_district_unknown
+    skip
     er = EnrollmentRepository.new
     er.load_data({
       :enrollment => {
@@ -53,6 +58,7 @@ class EnrollmentRepositoryTest < Minitest::Test
   # end
 
   def test_it_can_acces_name
+    skip
     er = EnrollmentRepository.new
     er.load_data({
                    :enrollment => {

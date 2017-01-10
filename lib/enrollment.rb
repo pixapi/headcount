@@ -4,7 +4,6 @@ class Enrollment
   def initialize(enrollment_data)
     @name = enrollment_data[:name].upcase
     @enrollment_data = enrollment_data
-    # binding.pry
   end
 
   def kindergarten_participation_by_year
@@ -28,5 +27,4 @@ class Enrollment
   def graduation_rate_in_year(year)
     graduation_rate_by_year[year]
   end
-
 end

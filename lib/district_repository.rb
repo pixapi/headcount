@@ -4,6 +4,7 @@ require_relative 'enrollment_repository'
 require 'pry'
 
 class DistrictRepository
+  attr_reader :enroll_repo
   def initialize
     @districts = {}
     @enroll_repo = EnrollmentRepository.new
