@@ -8,7 +8,6 @@ class HeadcountAnalyst
   end
 
   def kindergarten_participation_rate_variation(place_one, place_two)
-    # binding.pry
     average_one = calculate_average(place_one)
     average_two = calculate_average(place_two[:against])
     average_two = 1 if average_two == 0
@@ -17,7 +16,6 @@ class HeadcountAnalyst
   end
 
   def calculate_average(place)
-    # binding.pry
     array = dr.find_enrollment(place).kindergarten_participation_by_year.values
     array.count = 1 if array.count == 0
     array.reduce(:+)/array.count
