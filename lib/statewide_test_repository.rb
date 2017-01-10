@@ -36,22 +36,41 @@ class StatewideTestRepository
     def distribution_scores(name, subject, year, rate, grade, state_test)
       if state_test == nil
         state_tests[name] = StatewideTest.new({:name => name, grade => {subject =>{year => rate}}})
-        binding.pry
       elsif grade == :eighth_grade && state_test.state_test_data[:eighth_grade].nil?
         state_test = state_tests[name]
-        state_test.state_test_data[:eighth_grade] = {year => rate}
-      elsif grade == :eighth_grade && state_test.state_test_data[:eighth_grade].count != 0
-        add_years_rate_scores(state_test, grade, year, rate)
+        state_test.state_test_data[:eighth_grade] = {subject =>{year => rate}}
       else
-        add_years_rate_scores(state_test, grade, year, rate)
+        add_years_rate_scores(state_test, grade, year, rate, subject)
       end
     end
 
-    def add_years_rate_scores(state_test, grade, year, rate)
-      if grade == :third_grade
-        state_test.state_test_data[:third_grade].merge!({year => rate})
-      elsif grade == :eighth_grade
-        state_test.state_test_data[:eighth_grade].merge!({year => rate})
+    def add_years_rate_scores(state_test, grade, year, rate, subject)
+      grade_3 = state_test.state_test_data[:third_grade]
+      grade_8 = state_test.state_test_data[:eighth_grade]
+      if grade == :third_grade && subject == "Math" && grade_3["Math"].nil?
+        grade_3["Math"] = {year => rate}
+      elsif grade == :third_grade && subject == "Math" && grade_3["Math"].count != 0
+        grade_3["Math"].merge!({year => rate})
+      elsif grade == :third_grade && subject == "Reading" && grade_3["Reading"].nil?
+        grade_3["Reading"] = {year => rate}
+      elsif grade == :third_grade && subject == "Reading" && grade_3["Reading"].count != 0
+        grade_3["Reading"].merge!({year => rate})
+      elsif grade == :third_grade && subject == "Writing" && grade_3["Writing"].nil?
+        grade_3["Writing"] = {year => rate}
+      elsif grade == :third_grade && subject == "Writing" && grade_3["Writing"].count != 0
+        grade_3["Writing"].merge!({year => rate})
+      elsif grade == :eighth_grade && subject == "Math" && grade_8["Math"].nil?
+        grade_8["Math"] = {year => rate}
+      elsif grade == :eighth_grade && subject == "Math" && grade_8["Math"].count != 0
+        grade_8["Math"].merge!({year => rate})
+      elsif grade == :eighth_grade && subject == "Reading" && grade_8["Reading"].nil?
+        grade_8["Reading"] = {year => rate}
+      elsif grade == :eighth_grade && subject == "Reading" && grade_8["Reading"].count != 0
+        grade_8["Reading"].merge!({year => rate})
+      elsif grade == :eighth_grade && subject == "Writing" &&  grade_8["Writing"].nil?
+        grade_8["Writing"] = {year => rate}
+      elsif grade == :eighth_grade && subject == "Writing" &&  grade_8["Writing"].count != 0
+        grade_8["Writing"].merge!({year => rate})
       end
     end
 
@@ -72,13 +91,3 @@ class StatewideTestRepository
     #   end
     # end
 end
-#
-# str = StatewideTestRepository.new
-# str.load_data({:statewide_testing => {
-# :third_grade => "./data/3rd grade students scoring proficient or above on the CSAP_TCAP.csv",
-# :eighth_grade => "./data/8th grade students scoring proficient or above on the CSAP_TCAP.csv",
-# :math => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Math.csv",
-# :reading => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Reading.csv",
-# :writing => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Writing.csv"
-# }})
-# str.find_by_name("Colorado")
