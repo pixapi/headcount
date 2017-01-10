@@ -4,6 +4,7 @@ require_relative 'enrollment_repository'
 require 'pry'
 
 class DistrictRepository
+  attr_reader :enroll_repo
   def initialize
     @districts = {}
     @enroll_repo = EnrollmentRepository.new
@@ -17,7 +18,6 @@ class DistrictRepository
       @districts[name] = District.new({:name => name}, self)
     end
     @enroll_repo.load_data(data_set)
-    # binding.pry
   end
 
   def find_by_name(district_name)
@@ -33,7 +33,6 @@ class DistrictRepository
   end
 
   def find_enrollment(name)
-    # binding.pry
     @enroll_repo.find_by_name(name)
   end
 

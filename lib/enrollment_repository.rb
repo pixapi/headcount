@@ -23,13 +23,16 @@ class EnrollmentRepository
       name = row[:location].upcase
       year = row[:timeframe].to_i
       rate = row[:data].to_f
+        rate = 0 if rate == "NA" || rate == "N/A"
       grade = grade_levels[data.values[0].keys[index]]
       enrollment = find_by_name(name)
       if enrollment == nil
         enrollments[name] = Enrollment.new({:name => name, grade => {year => rate}})
-      elsif grade == :high_school_graduation
+      elsif grade == :high_school_graduation && enrollment.enrollment_data[:high_school_graduation].nil?
         enrollment = enrollments[name]
         enrollment.enrollment_data[:high_school_graduation] = {year => rate}
+      elsif grade == :high_school_graduation && enrollment.enrollment_data[:high_school_graduation].count != 0
+        add_years_rate(enrollment, grade, year, rate)
       else
         add_years_rate(enrollment, grade, year, rate)
       end
