@@ -52,7 +52,6 @@ class StatewideTestRepository
       state_tests[name] = StatewideTest.new(attributes)
     elsif state_test.state_test_data[grade].nil?
       state_test.state_test_data[grade] = {year =>{sub_race => rate}}
-
     elsif state_test.state_test_data[grade][year].nil?
       state_test.state_test_data[grade][year] = {sub_race => rate}
     else

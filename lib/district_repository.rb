@@ -10,14 +10,18 @@ class DistrictRepository
               :statewide_repo
   def initialize
     @districts = {}
-    @enroll_repo = EnrollmentRepository.new
+    @enroll_repo =    EnrollmentRepository.new
     @statewide_repo = StatewideTestRepository.new
   end
 
   def load_data(data_set)
-    @file = CSV.open data_set[:enrollment][:kindergarten],
+    file = CSV.open data_set[:enrollment][:kindergarten],
             headers: true, header_converters: :symbol
-    @file.each do |row|
+    create_district_object(data_set, file)
+  end
+
+  def create_district_object(data_set, file)
+    file.each do |row|
       name = row[:location].upcase
       districts[name] = District.new({:name => name}, self)
     end

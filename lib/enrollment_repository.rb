@@ -2,7 +2,6 @@ require 'csv'
 require_relative 'enrollment'
 require 'pry'
 
-###################### MAYBE CHANGE enrollment for er in all files?#########
 class EnrollmentRepository
 
   attr_reader :enrollments,
@@ -27,19 +26,19 @@ class EnrollmentRepository
       rate = row[:data].to_f
         rate = 0 if rate == "NA" || rate == "N/A"
       grade = grade_levels[data.values[0].keys[index]]
-      enrollment = find_by_name(name)
-      create_enrollment(name, year, rate, grade, enrollment)
+      er = find_by_name(name)
+      create_enrollment(name, year, rate, grade, er)
     end
   end
 
-  def create_enrollment(name, year, rate, grade, enrollment)
+  def create_enrollment(name, year, rate, grade, er)
     attributes = {:name => name, grade => {year => rate}}
-    if enrollment.nil?
+    if er.nil?
       enrollments[name] = Enrollment.new(attributes)
-    elsif enrollment.enrollment_data[grade].nil?
-      enrollment.enrollment_data[grade] = {year => rate}
+    elsif er.enrollment_data[grade].nil?
+      er.enrollment_data[grade] = {year => rate}
     else
-      add_enrollment_data(grade, year, rate, enrollment)
+      add_enrollment_data(grade, year, rate, er)
     end
   end
 
