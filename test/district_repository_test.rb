@@ -8,8 +8,6 @@ class DistrictRepositoryTest < Minitest::Test
     assert_instance_of DistrictRepository, dr
   end
 
-  # #maybe test file loads? #Mocha test??
-  #
   def test_it_displays_district_if_known
     dr = DistrictRepository.new
     dr.load_data({
