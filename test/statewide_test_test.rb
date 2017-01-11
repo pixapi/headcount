@@ -106,28 +106,35 @@ class StatewideTestTest < Minitest::Test
     assert_in_delta 0.375, testing.proficient_for_subject_by_race_in_year(:writing, :hispanic, 2014), 0.005
   end
 
-  # def test_unknown_data_errors
-  #   #CHECK IF PASSES ONCE RAISE ERROR SET IN OUR STATEWIDE_TEST.RB
-  #
-  #   str = statewide_repo
-  #   testing = str.find_by_name("AULT-HIGHLAND RE-9")
-  #
-  #   assert_raises(UnknownDataError) do
-  #     testing.proficient_by_grade(1)
-  #   end
-  #
-  #   assert_raises(UnknownDataError) do
-  #     testing.proficient_for_subject_by_grade_in_year(:pizza, 8, 2011)
-  #   end
-  #
-  #   assert_raises(UnknownDataError) do
-  #     testing.proficient_for_subject_by_race_in_year(:reading, :pizza, 2013)
-  #   end
-  #
-  #   assert_raises(UnknownDataError) do
-  #     testing.proficient_for_subject_by_race_in_year(:pizza, :white, 2013)
-  #   end
-  # end
+  def test_unknown_data_errors
+    #CHECK IF PASSES ONCE RAISE ERROR SET IN OUR STATEWIDE_TEST.RB
+
+    str = StatewideTestRepository.new
+    str.load_data({:statewide_testing => {
+    :third_grade => "./data/3rd grade students scoring proficient or above on the CSAP_TCAP.csv",
+    :eighth_grade => "./data/8th grade students scoring proficient or above on the CSAP_TCAP.csv",
+    :math => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Math.csv",
+    :reading => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Reading.csv",
+    :writing => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Writing.csv"
+    }})
+    testing = str.find_by_name("AULT-HIGHLAND RE-9")
+
+    assert_raises(UnknownDataError) do
+      testing.proficient_by_grade(1)
+    end
+
+    assert_raises(UnknownDataError) do
+      testing.proficient_for_subject_by_grade_in_year(:pizza, 8, 2011)
+    end
+
+    # assert_raises(UnknownDataError) do
+    #   testing.proficient_for_subject_by_race_in_year(:reading, :pizza, 2013)
+    # end
+
+    assert_raises(UnknownDataError) do
+      testing.proficient_for_subject_by_race_in_year(:pizza, :white, 2013)
+    end
+  end
 
 
 end
