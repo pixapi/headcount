@@ -7,7 +7,7 @@ class StatewideTestRepositoryTest < Minitest::Test
     assert_instance_of StatewideTestRepository, str
   end
 
-  def test_it_loads_all_files
+  def test_it_find_name_after_loading_all_files
     str = StatewideTestRepository.new
     str.load_data({:statewide_testing => {
     :third_grade => "./data/3rd grade students scoring proficient or above on the CSAP_TCAP.csv",
@@ -17,10 +17,11 @@ class StatewideTestRepositoryTest < Minitest::Test
     :writing => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Writing.csv"
     }})
     str = str.find_by_name("ACADEMY 20")
-    assert_equal "ACADEMY 20", str.name
+    assert_equal "ACADEMY 20", str
   end
 
   def test_it_extracts_state_wide_proficiency_data
+    skip
     str = StatewideTestRepository.new
     str.load_data({:statewide_testing => {
     :third_grade => "./data/3rd grade students scoring proficient or above on the CSAP_TCAP.csv",
