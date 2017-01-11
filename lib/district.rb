@@ -1,4 +1,5 @@
 require_relative 'district_repository'
+
 class District
   attr_reader :district_info,
               :district_repository
