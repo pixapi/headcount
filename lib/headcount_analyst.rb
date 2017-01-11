@@ -34,17 +34,17 @@ class HeadcountAnalyst
     dr.find_enrollment(place).kindergarten_participation_by_year
   end
 
-  def kindergarten_participation_against_high_school_graduation(district)
-    kinder_var = kindergarten_participation_rate_variation(district, :against => "COLORADO")
-    grad_var = variation_from_district_graduation_against_state_graduation(district)
+  def kindergarten_participation_against_high_school_graduation(dist)
+    kv = kindergarten_participation_rate_variation(dist, :against => "COLORADO")
+    grad_var = variation_from_district_graduation_against_state_graduation(dist)
     grad_var = 1 if grad_var == 0
-    result = kinder_var/grad_var
+    result = kv/grad_var
      (result * 1000).floor / 1000.0
   end
 
-  def variation_from_district_graduation_against_state_graduation(district)
+  def variation_from_district_graduation_against_state_graduation(dist)
     state = "COLORADO"
-    average_district = calculate_graduation_average(district)
+    average_district = calculate_graduation_average(dist)
     average_state = calculate_graduation_average(state)
     result = average_district/average_state
     (result * 1000).floor / 1000.0
@@ -56,37 +56,37 @@ class HeadcountAnalyst
     (result * 1000).floor / 1000.0
   end
 
-  def kindergarten_participation_correlates_with_high_school_graduation(district)
-    if district[:for] == 'STATEWIDE'
+  def kindergarten_participation_correlates_with_high_school_graduation(dist)
+    if dist[:for] == 'STATEWIDE'
       variation_statewide
-    elsif district.keys == [:across]
-      variation_districts(district[:across])
+    elsif dist.keys == [:across]
+      variation_districts(dist[:across])
     else
-      district = district[:for]
-      result = kindergarten_participation_against_high_school_graduation(district)
+      dist = dist[:for]
+      result = kindergarten_participation_against_high_school_graduation(dist)
       result >= 0.6 && result <= 1.5
     end
   end
 
   def variation_statewide
-    variations = []
-    dr.enroll_repo.enrollments.each do |district, enrollment|
-      variations << kindergarten_participation_against_high_school_graduation(district)
+    vars = []
+    dr.enroll_repo.enrollments.each do |dist, enrollment|
+      vars << kindergarten_participation_against_high_school_graduation(dist)
     end
-    state_var = variations.count do |variation|
-      variation >= 0.6 && variation <= 1.5
+    state_var = vars.count do |var|
+      var >= 0.6 && var <= 1.5
     end
-    state_var.to_f / variations.count >= 0.7
+    state_var.to_f / vars.count >= 0.7
   end
 
-  def variation_districts(districts)
-    variations = []
-    districts.each do |district, enrollment|
-      variations << kindergarten_participation_against_high_school_graduation(district)
+  def variation_districts(dists)
+    vars = []
+    dists.each do |dist, enrollment|
+      vars << kindergarten_participation_against_high_school_graduation(dist)
     end
-    districts_var = variations.count do |variation|
-      variation >= 0.6 && variation <= 1.5
+    districts_var = vars.count do |var|
+      var >= 0.6 && var <= 1.5
     end
-    districts_var.to_f / variations.count >= 0.7
+    districts_var.to_f / vars.count >= 0.7
   end
 end
