@@ -7,7 +7,7 @@ class Enrollment
   end
 
   def kindergarten_participation_by_year
-    enrollment_data_hash = @enrollment_data[:kindergarten_participation]
+    enrollment_data_hash = enrollment_data[:kindergarten_participation]
     enrollment_data_hash.inject({}) do |h, (k, v)|
       h[k] = (v * 1000).floor / 1000.0; h
     end
@@ -18,7 +18,7 @@ class Enrollment
   end
 
   def graduation_rate_by_year
-    graduation_rate_hash = @enrollment_data[:high_school_graduation]
+    graduation_rate_hash = enrollment_data[:high_school_graduation]
     graduation_rate_hash.inject({}) do |h, (k, v)|
       h[k] = (v * 1000).floor / 1000.0; h
     end

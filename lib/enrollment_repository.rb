@@ -28,28 +28,26 @@ class EnrollmentRepository
         rate = 0 if rate == "NA" || rate == "N/A"
       grade = grade_levels[data.values[0].keys[index]]
       enrollment = find_by_name(name)
-      distribution(name, year, rate, grade, enrollment)
+      create_enrollment(name, year, rate, grade, enrollment)
     end
   end
 
-  def distribution(name, year, rate, grade, enrollment)
-    if enrollment == nil
-      enrollments[name] = Enrollment.new({:name => name, grade => {year => rate}})
-    elsif grade == :high_school_graduation && enrollment.enrollment_data[:high_school_graduation].nil?
-      enrollment = enrollments[name]
-      enrollment.enrollment_data[:high_school_graduation] = {year => rate}
-    elsif grade == :high_school_graduation && enrollment.enrollment_data[:high_school_graduation].count != 0
-      add_years_rate(enrollment, grade, year, rate)
+  def create_enrollment(name, year, rate, grade, enrollment)
+    attributes = {:name => name, grade => {year => rate}}
+    if enrollment.nil?
+      enrollments[name] = Enrollment.new(attributes)
+    elsif enrollment.enrollment_data[grade].nil?
+      enrollment.enrollment_data[grade] = {year => rate}
     else
-      add_years_rate(enrollment, grade, year, rate)
+      add_enrollment_data(grade, year, rate, enrollment)
     end
   end
 
-  def add_years_rate(enrollment, grade, year, rate)
+  def add_enrollment_data(grade, year, rate, er)
     if grade == :kindergarten_participation
-      enrollment.enrollment_data[:kindergarten_participation].merge!({year => rate})
-    elsif grade == :high_school_graduation
-      enrollment.enrollment_data[:high_school_graduation].merge!({year => rate})
+      er.enrollment_data[:kindergarten_participation].merge!({year => rate})
+    else
+      er.enrollment_data[:high_school_graduation].merge!({year => rate})
     end
   end
 
