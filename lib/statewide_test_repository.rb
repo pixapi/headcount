@@ -38,7 +38,7 @@ class StatewideTestRepository
       subject = row[:score]
       year = row[:timeframe].to_i
       rate = row[:data].to_f
-      rate = 0 if rate == "NA" || rate == "N/A" || rate == "LNE"
+      # rate = 0 if rate == "NA" || rate == "N/A" || rate == "LNE"
       grade = grade_levels[data.values[0].keys[index]]
       state_test = find_by_name(name)
       create_statewide_test_grade(name, subject, year, rate, grade, state_test)
@@ -66,7 +66,7 @@ class StatewideTestRepository
       race = row[:race_ethnicity]
       year = row[:timeframe].to_i
       rate = row[:data].to_f
-      rate = 0 if rate == "NA" || rate == "N/A" || rate == "LNE"
+      # rate = 0 if rate == "NA" || rate == "N/A" || rate == "LNE"
       grade = data.values[0].keys[index]
       state_test = find_by_name(name)
       create_statewide_test_race(name, race, year, rate, grade, state_test)
