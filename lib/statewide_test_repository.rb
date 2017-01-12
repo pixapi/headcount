@@ -19,7 +19,6 @@ class StatewideTestRepository
       "NATIVE AMERICAN" => :native_american,
       "TWO OR MORE" => :two_or_more,
       "WHITE" => :white}
-
   end
 
   def load_data(data)
@@ -37,8 +36,8 @@ class StatewideTestRepository
       name = row[:location].upcase
       subject = row[:score]
       year = row[:timeframe].to_i
-      rate = row[:data].to_f
-      # rate = 0 if rate == "NA" || rate == "N/A" || rate == "LNE"
+      rate = "N/A"
+      rate = row[:data].to_f if row[:data] != "N/A"
       grade = grade_levels[data.values[0].keys[index]]
       state_test = find_by_name(name)
       create_statewide_test_grade(name, subject, year, rate, grade, state_test)
