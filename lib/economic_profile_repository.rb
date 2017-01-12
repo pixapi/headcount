@@ -4,7 +4,7 @@ require 'pry'
 
 class EconomicProfileRepository
   attr_reader :profiles,
-              :file_keys
+  :file_keys
 
   def initialize
     @profiles = {}
@@ -13,7 +13,7 @@ class EconomicProfileRepository
       :children_in_poverty => :children_in_poverty,
       :free_or_reduced_price_lunch => :free_or_reduced_price_lunch,
       :title_i => :title_i
-      }
+    }
   end
 
   def find_by_name(name)
@@ -27,18 +27,17 @@ class EconomicProfileRepository
   end
 
   def check_loadpath(data, filepath, index)
-     if filepath.include?("income")
-       parse_income(data, filepath, index)
-     elsif filepath.include?("poverty")
-       parse_poverty(data, filepath, index)
+    if filepath.include?("income")
+      parse_income(data, filepath, index)
+    elsif filepath.include?("poverty")
+      parse_poverty(data, filepath, index)
       #  binding.pry
-     elsif filepath.include?("lunch")
-       parse_lunch(data, filepath, index)
-       binding.pry
-     elsif filepath.include?("Title")
-       parse_title(data, filepath, index)
-     end
-   end
+    elsif filepath.include?("lunch")
+      parse_lunch(data, filepath, index)
+    elsif filepath.include?("Title")
+      parse_title(data, filepath, index)
+    end
+  end
 
   def parse_income(data, filepath, index)
     CSV.foreach(filepath, headers: true, header_converters: :symbol) do |row|
@@ -65,9 +64,9 @@ end
 def parse_poverty(data, filepath, index)
   CSV.foreach(filepath, headers: true, header_converters: :symbol) do |row|
     name = row[:location].upcase
-    year = row[:timeframe].split("-").map { |num| num.to_i }
+    year = row[:timeframe].to_i
     data_type = row[:dataformat].to_s.downcase
-    rate_total = row[:data]
+    rate_total = row[:data].to_f
     file_key = file_keys.values[index]
     profile = find_by_name(name)
     create_poverty(name, year, data_type, rate_total, file_key, profile)
@@ -89,8 +88,18 @@ def parse_lunch(data, filepath, index)
     name = row[:location].upcase
     p_level = row[:poverty_level].to_s.downcase
     year = row[:timeframe].to_i
-    data_type = row[:dataformat].to_s.downcase
-    rate_total = row[:data].to_i
+    if row[:dataformat] == "Percent"
+      data_type = :percentage
+    else
+      data_type = :total
+    end
+    if data_type == :percentage
+      rate_total = row[:data].to_f if row[:data] != "N/A"
+    else
+      rate_total = row[:data].to_i if row[:data] != "N/A"
+    end
+    # data_type = row[:dataformat].to_s.downcase
+    # rate_total = row[:data].to_f
     file_key = file_keys.values[index]
     profile = find_by_name(name)
     create_lunch(name, p_level, year, data_type, rate_total, file_key, profile)
@@ -98,41 +107,34 @@ def parse_lunch(data, filepath, index)
 end
 
 def create_lunch(name, p_level, year, data_type, rate_total, file_key, profile)
-  percent = rate_total if data_type == "percent"
-  total = rate_total if data_type == "number"
-  attributes = {:name => name, file_key => {year => {:percentage => percent, :total => total}}}
   if profile.profile_data[file_key].nil?
-    profile.profile_data[file_key] = {year => {:percentage => percent, :total => total}}
+    profile.profile_data[file_key] = {year => {data_type => rate_total}}
   elsif profile.profile_data[file_key][year].nil?
-    profile.profile_data[file_key][year] = {:percentage => percent, :total => total}
+    profile.profile_data[file_key][year] = {data_type => rate_total}
+  elsif profile.profile_data[file_key][year][data_type].nil?
+    profile.profile_data[file_key][year][data_type] = rate_total
+  else
+    profile.profile_data[file_key][year][data_type] = rate_total
   end
 end
 
-##############
+###########
 def parse_title(data, filepath, index)
   CSV.foreach(filepath, headers: true, header_converters: :symbol) do |row|
     name = row[:location].upcase
-    year = row[:timeframe]
-    data_type = row[:dataformat].to_s.downcase
-    rate_total = row[:data]
+    year = row[:timeframe].to_i
+    rate = row[:data].to_f
     file_key = file_keys.values[index]
     profile = find_by_name(name)
-    create_lunch(name, p_level, year, data_type, rate_total, file_key, profile)
+    create_title(name, year, rate, file_key, profile)
   end
+  binding.pry
 end
 
-def create_title(name, p_level, year, data_type, rate_total, file_key, profile)
-  good_row = p_level == "elegible for free or reduced lunch"
-  # binding.pry
-  percent = rate_total if data_type == "percent"
-  total = rate_total if data_type == "number"
-  attributes = {:name => name, file_key => {year => {:percentage => percent, :total => total}}}
-  if good_row && profile.nil?
-    # binding.pry
-    profiles[name] = EconomicProfile.new(attributes)
-  elsif good_row && profile.profile_data[file_key].nil?
-    profile.profile_data[file_key] = {year => {:percentage => percent, :total => total}}
-  elsif good_row && profile.profile_data[file_key][year].nil?
-    good_row && profile.profile_data[file_key][year] = {:percentage => percent, :total => total}
+def create_title(name, year, rate, file_key, profile)
+  if profile.profile_data[file_key].nil?
+    profile.profile_data[file_key] = {year => rate}
+  elsif profile.profile_data[file_key][year].nil?
+    profile.profile_data[file_key][year] = rate
   end
 end
