@@ -1,7 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/amaralovato/Desktop/Mod1_1611/projects/headcount/headcount/lib/district_repository.rb": [
+      "/Users/alexfosco/headcount/lib/district_repository.rb": [
         1,
         1,
         1,
@@ -86,13 +86,12 @@
         1,
         null,
         null,
-        null,
         1,
         0,
         null,
         null
       ],
-      "/Users/amaralovato/Desktop/Mod1_1611/projects/headcount/headcount/lib/district.rb": [
+      "/Users/alexfosco/headcount/lib/district.rb": [
         1,
         null,
         1,
@@ -122,7 +121,7 @@
         null,
         null
       ],
-      "/Users/amaralovato/Desktop/Mod1_1611/projects/headcount/headcount/lib/enrollment_repository.rb": [
+      "/Users/alexfosco/headcount/lib/enrollment_repository.rb": [
         1,
         1,
         1,
@@ -181,7 +180,7 @@
         null,
         null
       ],
-      "/Users/amaralovato/Desktop/Mod1_1611/projects/headcount/headcount/lib/enrollment.rb": [
+      "/Users/alexfosco/headcount/lib/enrollment.rb": [
         1,
         1,
         null,
@@ -213,7 +212,7 @@
         null,
         null
       ],
-      "/Users/amaralovato/Desktop/Mod1_1611/projects/headcount/headcount/lib/statewide_test_repository.rb": [
+      "/Users/alexfosco/headcount/lib/statewide_test_repository.rb": [
         1,
         1,
         1,
@@ -306,7 +305,7 @@
         null,
         null
       ],
-      "/Users/amaralovato/Desktop/Mod1_1611/projects/headcount/headcount/lib/statewide_test.rb": [
+      "/Users/alexfosco/headcount/lib/statewide_test.rb": [
         null,
         1,
         null,
@@ -344,7 +343,7 @@
         null,
         null
       ],
-      "/Users/amaralovato/Desktop/Mod1_1611/projects/headcount/headcount/lib/message_error.rb": [
+      "/Users/alexfosco/headcount/lib/message_error.rb": [
         1,
         null,
         null,
@@ -354,7 +353,7 @@
         1,
         null
       ],
-      "/Users/amaralovato/Desktop/Mod1_1611/projects/headcount/headcount/lib/economic_profile_repository.rb": [
+      "/Users/alexfosco/headcount/lib/economic_profile_repository.rb": [
         1,
         1,
         1,
@@ -491,7 +490,7 @@
         null,
         null
       ],
-      "/Users/amaralovato/Desktop/Mod1_1611/projects/headcount/headcount/lib/economic_profile.rb": [
+      "/Users/alexfosco/headcount/lib/economic_profile.rb": [
         1,
         null,
         1,
@@ -541,7 +540,7 @@
         null,
         null
       ],
-      "/Users/amaralovato/Desktop/Mod1_1611/projects/headcount/headcount/test/district_test.rb": [
+      "/Users/alexfosco/headcount/test/district_test.rb": [
         1,
         1,
         1,
@@ -610,7 +609,7 @@
         null,
         null
       ],
-      "/Users/amaralovato/Desktop/Mod1_1611/projects/headcount/headcount/test/economic_profile_repository_test.rb": [
+      "/Users/alexfosco/headcount/test/economic_profile_repository_test.rb": [
         1,
         1,
         null,
@@ -633,7 +632,7 @@
         null,
         null
       ],
-      "/Users/amaralovato/Desktop/Mod1_1611/projects/headcount/headcount/test/economic_profile_test.rb": [
+      "/Users/alexfosco/headcount/test/economic_profile_test.rb": [
         1,
         1,
         null,
@@ -739,7 +738,7 @@
         null,
         null
       ],
-      "/Users/amaralovato/Desktop/Mod1_1611/projects/headcount/headcount/test/enrollment_repository_test.rb": [
+      "/Users/alexfosco/headcount/test/enrollment_repository_test.rb": [
         1,
         1,
         1,
@@ -811,7 +810,7 @@
         null,
         null
       ],
-      "/Users/amaralovato/Desktop/Mod1_1611/projects/headcount/headcount/test/enrollment_test.rb": [
+      "/Users/alexfosco/headcount/test/enrollment_test.rb": [
         1,
         1,
         null,
@@ -847,7 +846,7 @@
         null,
         null
       ],
-      "/Users/amaralovato/Desktop/Mod1_1611/projects/headcount/headcount/test/headcount_analyst_test.rb": [
+      "/Users/alexfosco/headcount/test/headcount_analyst_test.rb": [
         1,
         1,
         1,
@@ -965,9 +964,11 @@
         1,
         1,
         null,
+        null,
+        null,
         null
       ],
-      "/Users/amaralovato/Desktop/Mod1_1611/projects/headcount/headcount/lib/headcount_analyst.rb": [
+      "/Users/alexfosco/headcount/lib/headcount_analyst.rb": [
         1,
         null,
         1,
@@ -1059,9 +1060,15 @@
         null,
         1,
         null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         null
       ],
-      "/Users/amaralovato/Desktop/Mod1_1611/projects/headcount/headcount/lib/clean_math.rb": [
+      "/Users/alexfosco/headcount/lib/clean_math.rb": [
         1,
         1,
         0,
@@ -1069,7 +1076,110 @@
         null,
         null
       ],
-      "/Users/amaralovato/Desktop/Mod1_1611/projects/headcount/headcount/test/statewide_test_repository_test.rb": [
+      "/Users/alexfosco/headcount/test/result_entry_test.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null,
+        null
+      ],
+      "/Users/alexfosco/headcount/lib/result_entry.rb": [
+        1,
+        1,
+        null,
+        null,
+        1,
+        5,
+        null,
+        null,
+        1,
+        2,
+        null,
+        null,
+        1,
+        2,
+        null,
+        null,
+        1,
+        2,
+        null,
+        null,
+        1,
+        2,
+        null,
+        null,
+        null
+      ],
+      "/Users/alexfosco/headcount/test/result_set_test.rb": [
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        1,
+        null,
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
+        null
+      ],
+      "/Users/alexfosco/headcount/lib/result_set.rb": [
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        2,
+        null,
+        2,
+        null,
+        null,
+        null
+      ],
+      "/Users/alexfosco/headcount/test/statewide_test_repository_test.rb": [
         1,
         1,
         null,
@@ -1095,7 +1205,7 @@
         null,
         null
       ],
-      "/Users/amaralovato/Desktop/Mod1_1611/projects/headcount/headcount/test/statewide_test_test.rb": [
+      "/Users/alexfosco/headcount/test/statewide_test_test.rb": [
         1,
         1,
         1,
@@ -1238,6 +1348,6 @@
         null
       ]
     },
-    "timestamp": 1484211104
+    "timestamp": 1484222251
   }
 }
