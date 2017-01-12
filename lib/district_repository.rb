@@ -2,16 +2,19 @@ require 'csv'
 require_relative 'district'
 require_relative 'enrollment_repository'
 require_relative 'statewide_test_repository'
+require_relative 'economic_profile_repository'
 require 'pry'
 
 class DistrictRepository
   attr_reader :enroll_repo,
               :districts,
-              :statewide_repo
+              :statewide_repo,
+              :economic_profile
   def initialize
     @districts = {}
     @enroll_repo =    EnrollmentRepository.new
     @statewide_repo = StatewideTestRepository.new
+    @economic_profile = EconomicProfileRepository.new
   end
 
   def load_data(data_set)
@@ -46,5 +49,9 @@ class DistrictRepository
 
   def find_statewide_test(name)
     statewide_repo.find_by_name(name)
+  end
+
+  def find_profile(name)
+    economic_profile.find_by_name(name)
   end
 end

@@ -48,4 +48,20 @@ class DistrictTest < Minitest::Test
     statewide_test = district.statewide_test
   end
 
+  def test_connection_district_economic_profile
+    dr = DistrictRepository.new
+    dr.load_data({
+      :enrollment => {
+        :kindergarten => "./data/Kindergartners in full-day program.csv",
+        :high_school_graduation => "./data/High school graduation rates.csv",
+      },
+      :economic_profile => {
+      :median_household_income => "./data/Median household income.csv",
+      :children_in_poverty => "./data/School-aged children in poverty.csv",
+      :free_or_reduced_price_lunch => "./data/Students qualifying for free or reduced price lunch.csv",
+      :title_i => "./data/Title I students.csv"}})
+    district = dr.find_by_name("ACADEMY 20")
+    economic_profile = district.economic_profile
+  end
+
 end
