@@ -19,6 +19,4 @@ class StatewideTestRepositoryTest < Minitest::Test
     str = str.find_by_name("ACADEMY 20")
     assert_equal "ACADEMY 20", str.name
   end
-
-
 end

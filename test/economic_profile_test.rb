@@ -36,7 +36,6 @@ class EconomicProfileTest < Minitest::Test
   end
 
   def test_it_extracts_children_in_poverty_in_year
-    #WE NEED TO RAISE AN UnknownDataError
     data = {:median_household_income => {[2005, 2009] => 50000, [2008, 2014] => 60000},
     :children_in_poverty => {2012 => 0.1845},
     :free_or_reduced_price_lunch => {2014 => {:percentage => 0.023, :total => 100}},
@@ -48,7 +47,6 @@ class EconomicProfileTest < Minitest::Test
   end
 
   def test_it_extracts_free_or_reduced_price_lunch_percentage_in_year
-    #WE NEED TO RAISE AN UnknownDataError
     data = {:median_household_income => {[2005, 2009] => 50000, [2008, 2014] => 60000},
     :children_in_poverty => {2012 => 0.1845},
     :free_or_reduced_price_lunch => {2014 => {:percentage => 0.023, :total => 100}},
@@ -60,7 +58,6 @@ class EconomicProfileTest < Minitest::Test
   end
 
   def test_it_extracts_free_or_reduced_price_lunch_number_in_year
-    #WE NEED TO RAISE AN UnknownDataError
     data = {:median_household_income => {[2005, 2009] => 50000, [2008, 2014] => 60000},
     :children_in_poverty => {2012 => 0.1845},
     :free_or_reduced_price_lunch => {2014 => {:percentage => 0.023, :total => 100}},
@@ -98,7 +95,5 @@ class EconomicProfileTest < Minitest::Test
     assert_raises(UnknownDataError) do
       ep.free_or_reduced_price_lunch_percentage_in_year(3002)
     end
-
-
   end
 end

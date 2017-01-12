@@ -21,7 +21,7 @@ class HeadcountAnalystTest < Minitest::Test
   def test_it_gets_participation_variation_district_vs_state_ignoring_corrupted_data
     dr = DistrictRepository.new
     dr.load_data({
-      :enrollment => {
+        :enrollment => {
         :kindergarten => "./data/Kindergartners in full-day program.csv"}})
         ha = HeadcountAnalyst.new(dr)
         assert_equal 0.0, ha.kindergarten_participation_rate_variation('WEST YUMA COUNTY RJ-1', :against => 'COLORADO')
@@ -30,7 +30,7 @@ class HeadcountAnalystTest < Minitest::Test
   def test_it_gets_participation_variation_district_vs_district
     dr = DistrictRepository.new
     dr.load_data({
-  :enrollment => {
+    :enrollment => {
     :kindergarten => "./data/Kindergartners in full-day program.csv"}})
     ha = HeadcountAnalyst.new(dr)
     assert_equal 0.446, ha.kindergarten_participation_rate_variation('ACADEMY 20', :against => 'YUMA SCHOOL DISTRICT 1')
@@ -39,7 +39,7 @@ class HeadcountAnalystTest < Minitest::Test
   def test_calculate_average
     dr = DistrictRepository.new
     dr.load_data({
-  :enrollment => {
+    :enrollment => {
     :kindergarten => "./data/Kindergartners in full-day program.csv"}})
     ha = HeadcountAnalyst.new(dr)
     assert_equal 0.7088181818181819, ha.calculate_average("ADAMS COUNTY 14")
@@ -61,7 +61,7 @@ class HeadcountAnalystTest < Minitest::Test
   def test_it_compares_variations_of_kindergarten_participation_with_high_school_graduation
     dr = DistrictRepository.new
     dr.load_data({
-      :enrollment => {
+        :enrollment => {
         :kindergarten => "./data/Kindergartners in full-day program.csv",
         :high_school_graduation => "./data/High school graduation rates.csv"
       }})
@@ -73,7 +73,7 @@ class HeadcountAnalystTest < Minitest::Test
   def test_it_compares_variations_of_kindergarten_participation_with_high_school_graduation
     dr = DistrictRepository.new
     dr.load_data({
-      :enrollment => {
+        :enrollment => {
         :kindergarten => "./data/Kindergartners in full-day program.csv",
         :high_school_graduation => "./data/High school graduation rates.csv"
       }})
@@ -84,20 +84,20 @@ class HeadcountAnalystTest < Minitest::Test
   def test_it_refutes_when_compares_variation_kindergarten_participation_with_high_school_graduation_out_of_range
     dr = DistrictRepository.new
     dr.load_data({
-      :enrollment => {
+        :enrollment => {
         :kindergarten => "./data/Kindergartners in full-day program.csv",
         :high_school_graduation => "./data/High school graduation rates.csv"
       }})
     ha = HeadcountAnalyst.new(dr)
     refute ha.kindergarten_participation_correlates_with_high_school_graduation(for: 'MONTROSE COUNTY RE-1J')
-    # refute ha.kindergarten_participation_correlates_with_high_school_graduation(for: 'SIERRA GRANDE R-30')
-    # assert ha.kindergarten_participation_correlates_with_high_school_graduation(for: 'PARK (ESTES PARK) R-3')
+    refute ha.kindergarten_participation_correlates_with_high_school_graduation(for: 'SIERRA GRANDE R-30')
+    assert ha.kindergarten_participation_correlates_with_high_school_graduation(for: 'PARK (ESTES PARK) R-3')
   end
 
   def test_it_compares_variations_of_kindergarten_participation_with_high_school_graduation_statewide
     dr = DistrictRepository.new
     dr.load_data({
-      :enrollment => {
+        :enrollment => {
         :kindergarten => "./data/Kindergartners in full-day program.csv",
         :high_school_graduation => "./data/High school graduation rates.csv"
       }})
@@ -108,13 +108,11 @@ class HeadcountAnalystTest < Minitest::Test
   def test_it_compares_variations_of_kindergarten_participation_with_high_school_graduation_multiple_districts
     dr = DistrictRepository.new
     dr.load_data({
-      :enrollment => {
+        :enrollment => {
         :kindergarten => "./data/Kindergartners in full-day program.csv",
         :high_school_graduation => "./data/High school graduation rates.csv"
       }})
     ha = HeadcountAnalyst.new(dr)
     assert ha.kindergarten_participation_correlates_with_high_school_graduation(:across => ["ACADEMY 20", 'PARK (ESTES PARK) R-3', 'YUMA SCHOOL DISTRICT 1'])
   end
-
-  
 end

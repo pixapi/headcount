@@ -39,14 +39,7 @@ class StatewideTestTest < Minitest::Test
         assert_in_delta proficiency, testing.proficient_by_grade(3)[year][subject], 0.005
       end
     end
-
-  #   expected.each do |year, data|
-  #     data.each do |subject, proficiency|
-  #       assert_in_delta proficiency, testing.proficient_by_grade(6)[year][subject], 0.005
-  #     end
-  #   end
   end
-  # MAYBE BUILD A TEST TO PROVE THAT NEXT TEST SHOWS UNKNOWN WHEN RACE NOT FOUND #####
 
   def test_finds_scores_during_years_by_race
     str = StatewideTestRepository.new
@@ -85,8 +78,8 @@ class StatewideTestTest < Minitest::Test
     testing = str.find_by_name("WRAY SCHOOL DISTRICT RD-2")
     assert_in_delta 0.89, testing.proficient_for_subject_by_grade_in_year(:reading, 3, 2014), 0.005
 
-    # testing = str.find_by_name("PLATEAU VALLEY 50")
-    # assert_equal "N/A", testing.proficient_for_subject_by_grade_in_year(:reading, 8, 2011)
+    testing = str.find_by_name("PLATEAU VALLEY 50")
+    assert_equal "N/A", testing.proficient_for_subject_by_grade_in_year(:reading, 8, 2011)
   end
 
   def test_finds_score_per_race_year_subject
@@ -107,8 +100,6 @@ class StatewideTestTest < Minitest::Test
   end
 
   def test_unknown_data_errors
-    #CHECK IF PASSES ONCE RAISE ERROR SET IN OUR STATEWIDE_TEST.RB
-
     str = StatewideTestRepository.new
     str.load_data({:statewide_testing => {
     :third_grade => "./data/3rd grade students scoring proficient or above on the CSAP_TCAP.csv",
@@ -127,14 +118,8 @@ class StatewideTestTest < Minitest::Test
       testing.proficient_for_subject_by_grade_in_year(:pizza, 8, 2011)
     end
 
-    # assert_raises(UnknownDataError) do
-    #   testing.proficient_for_subject_by_race_in_year(:reading, :pizza, 2013)
-    # end
-
     assert_raises(UnknownDataError) do
       testing.proficient_for_subject_by_race_in_year(:pizza, :white, 2013)
     end
   end
-
-
 end
