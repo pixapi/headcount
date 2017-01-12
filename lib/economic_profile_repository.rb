@@ -31,7 +31,6 @@ class EconomicProfileRepository
       parse_income(data, filepath, index)
     elsif filepath.include?("poverty")
       parse_poverty(data, filepath, index)
-      #  binding.pry
     elsif filepath.include?("lunch")
       parse_lunch(data, filepath, index)
     elsif filepath.include?("Title")
@@ -98,8 +97,6 @@ def parse_lunch(data, filepath, index)
     else
       rate_total = row[:data].to_i if row[:data] != "N/A"
     end
-    # data_type = row[:dataformat].to_s.downcase
-    # rate_total = row[:data].to_f
     file_key = file_keys.values[index]
     profile = find_by_name(name)
     create_lunch(name, p_level, year, data_type, rate_total, file_key, profile)
@@ -118,7 +115,6 @@ def create_lunch(name, p_level, year, data_type, rate_total, file_key, profile)
   end
 end
 
-###########
 def parse_title(data, filepath, index)
   CSV.foreach(filepath, headers: true, header_converters: :symbol) do |row|
     name = row[:location].upcase
@@ -128,7 +124,6 @@ def parse_title(data, filepath, index)
     profile = find_by_name(name)
     create_title(name, year, rate, file_key, profile)
   end
-  binding.pry
 end
 
 def create_title(name, year, rate, file_key, profile)

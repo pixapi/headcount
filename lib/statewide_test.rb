@@ -1,24 +1,13 @@
 
-require './lib/message_error'
+require_relative 'message_error'
+
 class StatewideTest
   attr_reader :state_test_data,
               :name
-  # GRADES = [3, 8]
-  # RACES = [:asian, :black, :pacific_islander, :hispanic, :native_american, :two_or_more, :white]
-  # SUBJECT = [:math, :writing, :reading]
-  #
   def initialize(state_test_data)
     @state_test_data = state_test_data
     @name = state_test_data[:name].upcase
   end
-
-  # def convert_integer_to_symbol(grade)
-  #   if grade == 3
-  #     grade = :third_grade
-  #   elsif grade == 8
-  #     grade = :eighth_grade
-  #   end
-  # end
 
   def proficient_by_grade(grade)
     grade = :third_grade if grade == 3
