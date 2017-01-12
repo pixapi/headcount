@@ -89,4 +89,5 @@ class HeadcountAnalyst
     end
     districts_var.to_f / vars.count >= 0.7
   end
+
 end

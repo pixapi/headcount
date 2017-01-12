@@ -17,7 +17,7 @@ class EconomicProfileRepository
   end
 
   def find_by_name(name)
-    @profiles[name.upcase]
+    profiles[name.upcase]
   end
 
   def load_data(data)
@@ -84,7 +84,7 @@ class EconomicProfileRepository
   def parse_lunch(data, filepath, index)
     CSV.foreach(filepath, headers: true, header_converters: :symbol) do |row|
       name = row[:location].upcase
-      p_level = row[:poverty_level].to_s.downcase
+      p_lev = row[:poverty_level].to_s.downcase
       year = row[:timeframe].to_i
       if row[:dataformat] == "Percent"
         data_type = :percentage
@@ -98,11 +98,11 @@ class EconomicProfileRepository
       end
       file_key = file_keys.values[index]
       profile = find_by_name(name)
-      create_lunch(name, p_level, year, data_type, rate_total, file_key, profile)
+      create_lunch(name, p_lev, year, data_type, rate_total, file_key, profile)
     end
   end
 
-  def create_lunch(name, p_level, year, data_type, rate_total, file_key, profile)
+  def create_lunch(name, p_lev, year, data_type, rate_total, file_key, profile)
     if profile.profile_data[file_key].nil?
       profile.profile_data[file_key] = {year => {data_type => rate_total}}
     elsif profile.profile_data[file_key][year].nil?
