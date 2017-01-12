@@ -1,10 +1,9 @@
 require 'csv'
 require_relative 'economic_profile'
-require 'pry'
 
 class EconomicProfileRepository
   attr_reader :profiles,
-  :file_keys
+              :file_keys
 
   def initialize
     @profiles = {}
@@ -12,8 +11,7 @@ class EconomicProfileRepository
       :median_household_income => :median_household_income,
       :children_in_poverty => :children_in_poverty,
       :free_or_reduced_price_lunch => :free_or_reduced_price_lunch,
-      :title_i => :title_i
-    }
+      :title_i => :title_i}
   end
 
   def find_by_name(name)

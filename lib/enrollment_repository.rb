@@ -1,9 +1,7 @@
 require 'csv'
 require_relative 'enrollment'
-require 'pry'
 
 class EnrollmentRepository
-
   attr_reader :enrollments,
               :grade_levels
 
@@ -53,5 +51,4 @@ class EnrollmentRepository
   def find_by_name(name)
     @enrollments[name.upcase]
   end
-
 end

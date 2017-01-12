@@ -1,8 +1,6 @@
-require_relative 'clean_math'
-
 class HeadcountAnalyst
-  include CleanMath
   attr_reader :dr
+
   def initialize(dr)
     @dr = dr
   end
@@ -89,5 +87,4 @@ class HeadcountAnalyst
     end
     districts_var.to_f / vars.count >= 0.7
   end
-
 end

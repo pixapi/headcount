@@ -4,6 +4,7 @@ require_relative 'message_error'
 class StatewideTest
   attr_reader :state_test_data,
               :name
+
   def initialize(state_test_data)
     @state_test_data = state_test_data
     @name = state_test_data[:name].upcase
@@ -29,7 +30,6 @@ class StatewideTest
   end
 
   def proficient_for_subject_by_race_in_year(subject, race, year)
-    # IT DOESN'T RAISE ERROR PROPERLY, ERROR IN SPEC HARNESS
     raise UnknownDataError unless state_test_data[race][year][subject]
     state_test_data[race][year][subject]
   end

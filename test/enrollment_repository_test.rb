@@ -1,9 +1,7 @@
 require_relative 'test_helper'
 require './lib/enrollment_repository'
-require 'pry'
 
 class EnrollmentRepositoryTest < Minitest::Test
-
   def test_it_has_a_class
     er = EnrollmentRepository.new
     assert_instance_of EnrollmentRepository, er
@@ -29,27 +27,7 @@ class EnrollmentRepositoryTest < Minitest::Test
                   :kindergarten => "./data/Kindergartners in full-day program.csv"}})
     assert_nil er.find_by_name("OHIO 216")
   end
-
-  # def test_it_adds_new_district_to_enrollment_data_tracker
-  # skip
-  # er = EnrollmentRepository.new
-  # er.add_to_enrollments("MOFFAT 2", 2004, 0.01429)
-  #
-  #   assert_equal 1, er.enrollments.count
-  #   assert_equal Enrollment, er.add_to_enrollments("MOFFAT 2", 2004, 0.01429).class
-  # end
-
-  # def test_it_adds_new_data_to_existant_district_in_data_tracker
-  #   skip
-  #   er = EnrollmentRepository.new
-  #   er.add_to_enrollments("CENTENNIAL R-1", 2005, 0.10526)
-  #   er.add_to_enrollments("CENTENNIAL R-1", 2006, 04545)
-  #   expected = {:name=>"CENTENNIAL R-1", :kindergarten_participation=>{2005=>0.10526, 2006=>2405}}
-  #
-  #   assert_equal 1, er.enrollments.count
-  #   assert_equal expected, er.enrollments["CENTENNIAL R-1"].enrollment_data
-  # end
-
+  
   def test_it_can_acces_name
     er = EnrollmentRepository.new
     er.load_data({:enrollment => {

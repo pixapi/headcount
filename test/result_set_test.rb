@@ -4,7 +4,6 @@ require './lib/result_entry'
 require './lib/headcount_analyst'
 
 class ResultSetTest < Minitest::Test
-
   def test_class_exists
     r1 = ResultEntry.new({free_and_reduced_price_lunch_rate: 0.5,
     children_in_poverty_rate: 0.25,
@@ -16,7 +15,6 @@ class ResultSetTest < Minitest::Test
     rs = ResultSet.new(matching_districts: [r1], statewide_average: r2)
     assert_instance_of ResultSet, rs
   end
-
 
   def test_it_returns_entry_rates
     r1 = ResultEntry.new({free_and_reduced_price_lunch_rate: 0.5,
@@ -42,5 +40,4 @@ class ResultSetTest < Minitest::Test
     assert_equal 55483, rs.matching_districts.first.median_household_income
     assert_equal 98540, rs.statewide_average.median_household_income
   end
-
 end
