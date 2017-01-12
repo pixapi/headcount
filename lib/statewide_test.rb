@@ -29,8 +29,11 @@ class StatewideTest
   end
 
   def proficient_for_subject_by_race_in_year(subject, race, year)
-    # IT DOESN'T RAISE ERROR PROPERLY, ERROR IN SPEC HARNESS
-    raise UnknownDataError unless state_test_data[race][year][subject]
+    raise UnknownDataError unless find_my_error_and_raise(subject, race, year)
     state_test_data[race][year][subject]
+  end
+
+  def find_my_error_and_raise(subject, race, year)
+    state_test_data[race] && state_test_data[race][year] && state_test_data[race][year][subject]
   end
 end
