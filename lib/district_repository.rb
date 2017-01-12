@@ -49,6 +49,7 @@ class DistrictRepository
 
   def find_statewide_test(name)
     statewide_repo.find_by_name(name)
+    binding.pry
   end
 
   def find_profile(name)
